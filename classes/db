@@ -37,6 +37,56 @@ public class db {
         }
     }
 
+    public static void Max_grades() {
+        Map<String, List<Object>> stud = null;
+        int[] grades = new int[6];
+        String[] names = new String[6];
+
+        try {
+            setConnection();
+            String sql = "SELECT"
+                    + " student.grades , classes.class_Name "
+                    + " FROM student,classes"
+                    + " where classes.ID=class_ID";
+            st = con.createStatement();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            int m = 0;
+            List newList = null;
+            while (rs.next()) {
+
+                grades[m] = rs.getInt("grades");
+                names[m] = rs.getString("class_Name");
+                m++;
+                newList = new ArrayList(Arrays.asList(grades));
+                newList.addAll(Arrays.asList(names));
+
+                stud = new HashMap<>();
+                stud.put("data", newList);
+            }
+
+            for (int i = 0; i < names.length; i++) {
+                for (int j = 5; j > i; j--) {
+                    if (names[i].equals(names[j]) && i != j) {
+                        if (grades[i] > grades[j]) {
+                            //max is grades[i];
+                            grades[j] = grades[i];
+                        } else {
+                            //max is grades[j]
+                            grades[i] = grades[j];
+                        }
+                    } else {}
+                }
+                System.out.println(grades[i] + "\t" + names[i]);
+            }
+            
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static List fillAll() {
         List<String[]> table = null;
         //ArrayList<students> stud = new ArrayList<>();

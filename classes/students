@@ -1,0 +1,52 @@
+package school;
+
+public class students{
+    
+    
+    private int ID;
+    private String stud_Name;
+    private int age;
+    private int grades;
+    private int class_ID;    
+    
+    public int getStud_ID() {
+        return ID;
+    }
+
+    public void setStud_ID(int stud_ID) {
+        this.ID = stud_ID;
+    }
+
+    public String getStud_Name() {
+        return stud_Name;
+    }
+
+    public void setStud_Name(String stud_Name) {
+        this.stud_Name = stud_Name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getGrades() {
+        return grades;
+    }
+
+    public void setGrades(int grades) {
+        this.grades = grades;
+    }
+
+    public int getClass_ID() {
+        return class_ID;
+    }
+
+    public void setClass_ID(int class_ID) {
+        this.class_ID = class_ID;
+    }
+    
+}

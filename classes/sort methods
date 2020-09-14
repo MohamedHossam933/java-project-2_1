@@ -1,0 +1,42 @@
+package school;
+
+import static school.db.*;
+
+public class stud_class {
+
+    public static void sort_grades() {
+        int[] grades = get_grades();
+        int temp = 0;
+        for (int i = 0; i < grades.length; i++) {
+            for (int j = i + 1; j < grades.length; j++) {
+                if (grades[i] < grades[j]) {
+                    temp = grades[i];
+                    grades[i] = grades[j];
+                    grades[j] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < grades.length; i++) {
+            System.out.print(grades[i] + " ");
+        }
+        System.out.println();
+    }
+    
+    public static void sort_ages() {
+        int[] ages = get_ages();
+        int temp = 0;
+        for (int i = 0; i < ages.length; i++) {
+            for (int j = i + 1; j < ages.length; j++) {
+                if (ages[i] > ages[j]) {
+                    temp = ages[i];
+                    ages[i] = ages[j];
+                    ages[j] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < ages.length; i++) {
+            System.out.print(ages[i] + " ");
+        }
+        System.out.println();
+    }
+}

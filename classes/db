@@ -39,7 +39,6 @@ public class db {
 
     public static List fillAll() {
         List<String[]> table = null;
-        //bogy
         //ArrayList<students> stud = new ArrayList<>();
         try {
             setConnection();

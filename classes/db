@@ -1,0 +1,126 @@
+package school;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class db {
+
+    private static String url = "";
+    private static final String dbname = "school";
+    private static Connection con;
+    private static ResultSet rs;
+    private static Statement st;
+    private static PreparedStatement ps;
+
+    private static void setURL() {
+        url = "jdbc:mysql://localhost/" + dbname
+                //to use arabic language in data base
+                + "?useUnicode=true&characterEncoding=UTF-8&serverTimezone = UTC";
+
+    }
+
+    private static void setConnection() {
+        try {
+            setURL();
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, "root", "");
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public static List fillAll() {
+        List<String[]> table = null;
+        //bogy
+        //ArrayList<students> stud = new ArrayList<>();
+        try {
+            setConnection();
+            String sql = "SELECT "
+                    + "student.ID,student.student_Name,"
+                    + " student.age, student.grades, "
+                    + " classes.ID,classes.No_Of_Student,classes.class_Name"
+                    + " FROM student,classes"
+                    + " where classes.ID=class_ID";
+            st = con.createStatement();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            //IDs = new Object[3][8];
+            int nCol = rs.getMetaData().getColumnCount();
+            table = new ArrayList<>();
+            while (rs.next()) {
+                String[] row = new String[nCol];
+                for (int iCol = 1; iCol <= nCol; iCol++) {
+                    Object obj = rs.getObject(iCol);
+                    row[iCol - 1] = (obj == null) ? null : obj.toString();
+                }
+                table.add(row);
+            }
+
+            for (String[] row : table) {
+                for (String str : row) {
+                    System.out.print(str + "\t");
+                }
+                System.out.println();
+            }
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return table;
+    }
+    protected static int[] get_grades() {
+        int[] grades = {0};
+        try {
+            setConnection();
+            String sql = "SELECT "
+                    + "student.grades"
+                    + " FROM student";
+            st = con.createStatement();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            grades = new int[6];
+            int i = 0;
+            while (rs.next()) {
+                grades[i] = rs.getInt("grades");
+                i++;
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        return grades;
+    }
+
+    protected static int[] get_ages() {
+        int[] ages = {0};
+        try {
+            setConnection();
+            String sql = "SELECT "
+                    + "student.age"
+                    + " FROM student";
+            st = con.createStatement();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            ages = new int[6];
+            int i=0;
+            while (rs.next()) {
+                ages[i] = rs.getInt("age");
+                i++;
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        return ages;
+    }
+
+}

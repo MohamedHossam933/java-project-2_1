@@ -1,0 +1,32 @@
+
+package school;
+
+public class classes {
+    private int ID;
+    private String class_Name;
+    private int No_Stud;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getClass_Name() {
+        return class_Name;
+    }
+
+    public void setClass_Name(String class_Name) {
+        this.class_Name = class_Name;
+    }
+
+    public int getNo_Stud() {
+        return No_Stud;
+    }
+
+    public void setNo_Stud(int No_Stud) {
+        this.No_Stud = No_Stud;
+    }
+}
